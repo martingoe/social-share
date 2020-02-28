@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose")
 const hashingUtils = require("../utils/hashig")
-const session = require("express-session")
 const User = require("../modules/user")
 const sidUtils = require("../utils/idCreator")
 
