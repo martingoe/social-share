@@ -53,8 +53,7 @@ router.post("/login", async(req, res) => {
         if(req.cookies.sid){
             const user = await User.findOne({sid: req.cookies.sid})
             res.json(user)
-        }
-        else{
+        } else{
             const user = await User.findOne({email: req.body.email})
             if(hashingUtils.checkPassword(req.body.password, user.password)){
                 const sid = sidUtils.uniqueSid()
@@ -67,6 +66,15 @@ router.post("/login", async(req, res) => {
             }
         }
     } catch (e){
+        res.json({message: e})
+    }
+})
+
+router.post("/logout", async(req, res) => {
+    try{
+        res.clearCookie("sid")
+        res.json({message: "Successfully logged out"})
+    } catch(e){
         res.json({message: e})
     }
 })
