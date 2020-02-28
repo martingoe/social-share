@@ -21,7 +21,7 @@ const checkPassword = function (password, hashPassword){
     return false
 }
 
-function createPepper(length) {
+function createPepper() {
    return characters.charAt(Math.floor(Math.random() * charactersLength));
 }
 
