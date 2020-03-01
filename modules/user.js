@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const transforms = require("../utils/transform")
 
 const schema = mongoose.Schema({
     _id: {
@@ -24,7 +25,7 @@ const schema = mongoose.Schema({
         forename: String,
         surname: String
     }
-
 });
 
+schema.set("toJSON", {transform: transforms.userPrint})
 module.exports = mongoose.model("user", schema);
