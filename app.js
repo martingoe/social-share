@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
+const postRoutes = require("./routes/postRoutes")
 
 const app = express();
 
@@ -13,6 +14,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes)
 
 // Catch 404 errors
 app.use(function (req, res, next) {
