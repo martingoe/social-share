@@ -92,7 +92,18 @@ router.post("dislike/:postId", async (req, res) => {
     }
 })
 
+router.delete("/:postId", async(req, res) => {
+    try{
+        await Post.deleteOne({_id: req.params.postId}, (err) => {
+            if (err)
+                res.json({message: err})
+            res.json({message: "Deleted the user"})
+        })
 
+    } catch(e) {
+        res.json({message: e})
+    }
+})
 
 
 module.exports = router
