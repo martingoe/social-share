@@ -27,5 +27,5 @@ const schema = mongoose.Schema({
     }
 });
 
-schema.set("toJSON", {transform: transforms.userPrint})
+schema.set("toJSON", {transform: transforms.userDefaultPrint})
 module.exports = mongoose.model("user", schema);
