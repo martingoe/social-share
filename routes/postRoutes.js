@@ -11,7 +11,7 @@ const router = express.Router()
 
 router.get("/", async (req, res) => {
     try {
-        const posts = await Post.find()
+        const posts = await Post.find().populate("userId")
         res.json(posts)
     } catch (e) {
         res.json({
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:postId", async (req, res) => {
     try {
-        const post = await Post.findById(req.params.postId)
+        let post = await Post.findById(req.params.postId).populate("userId")
         const userId = (await User.findOne({
             sid: req.cookies.sid
         }))._id

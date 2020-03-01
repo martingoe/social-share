@@ -4,7 +4,7 @@ const User = require("./user")
 const schema = mongoose.Schema({
     _id: mongoose.Types.ObjectId,
     content: String,
-    userId: mongoose.Types.ObjectId,
+    userId: {type: mongoose.Types.ObjectId, ref: "user"},
     creationDate: Date,
     likes: Number,
     dislikes: Number,
