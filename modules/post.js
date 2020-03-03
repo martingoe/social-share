@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const User = require("./user")
+const transform = require("../utils/transform")
 
 const schema = mongoose.Schema({
     _id: mongoose.Types.ObjectId,
@@ -11,5 +11,7 @@ const schema = mongoose.Schema({
     likesUsers: [mongoose.Types.ObjectId],
     dislikesUsers: [mongoose.Types.ObjectId]
 })
+
+schema.set("toJSON", {transform: transform.postDefaultPrint})
 
 module.exports = mongoose.model("post", schema)
