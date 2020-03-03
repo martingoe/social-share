@@ -33,6 +33,7 @@ router.get("/:userId", async (req, res) => {
     }
 })
 
+// Get the latest 20 posts from a specific user
 router.get("/:userId/posts", async (req, res) => {
     try {
         const userId = new mongoose.Types.ObjectId(req.params.userId)
@@ -107,6 +108,7 @@ router.post("/login", async (req, res) => {
     }
 })
 
+// Log the user out by removing the sid cookie
 router.post("/logout", async (req, res) => {
     try {
         res.clearCookie("sid")
@@ -120,6 +122,7 @@ router.post("/logout", async (req, res) => {
     }
 })
 
+// Follow or unfollow a specific user
 router.post("/follow/:userId", async (req, res) => {
     try {
         let user = await User.findOne({sid: req.cookies.sid})

@@ -8,6 +8,7 @@ const likesUtils = require("../utils/likesUtils")
 const router = express.Router()
 
 
+// Get the latest 20 posts
 router.get("/", async (req, res) => {
     try {
         const user = await User.findOne({sid: req.cookies.sid})
@@ -20,6 +21,7 @@ router.get("/", async (req, res) => {
     }
 })
 
+// Gets a specific post by its id
 router.get("/:postId", async (req, res) => {
     try {
         let post = await Post.findById(req.params.postId).populate("userId")
@@ -37,6 +39,7 @@ router.get("/:postId", async (req, res) => {
     }
 })
 
+// Post a new post with the user from the sid
 router.post("/", async (req, res) => {
     try {
         const post = new Post(req.body)
@@ -56,6 +59,7 @@ router.post("/", async (req, res) => {
     }
 })
 
+// Like or unlike a post
 router.post("/like/:postId", async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
@@ -74,6 +78,7 @@ router.post("/like/:postId", async (req, res) => {
     }
 })
 
+// Dislike or un-dislike a post
 router.post("/dislike/:postId", async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
@@ -92,6 +97,7 @@ router.post("/dislike/:postId", async (req, res) => {
     }
 })
 
+// Delete a post by its id
 router.delete("/:postId", async(req, res) => {
     try{
         await Post.deleteOne({_id: req.params.postId}, (err) => {
