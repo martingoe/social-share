@@ -47,13 +47,12 @@ localhost:PORT/api/1.0/
 * [Express.js](https://expressjs.com/) - Web framework for Node.js
 * [MongoDB](https://www.mongodb.com/) - The NOSQL database
 
-## Versioning
 
 ## Authors
 
 * **xCubeArrow** - *Initial work* - [xCubeArrow](https://github.com/xCubeArrow)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/xcubearrow/social-share/graphs/contributors) who participated in this project.
 
 ## License
 
