@@ -18,9 +18,7 @@ app.use("/api/post", postRoutes)
 
 // Catch 404 errors
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+    res.status(404).json({message: "This page does not exist"})
 });
 
 mongoose.connect(process.env.MONGODB_CONNECTION, {
