@@ -9,9 +9,7 @@ const schema = mongoose.Schema({
     likes: Number,
     dislikes: Number,
     likesUsers: [mongoose.Types.ObjectId],
-    dislikesUsers: [mongoose.Types.ObjectId],
-    userLiked: Boolean,
-    userDisliked: Boolean
+    dislikesUsers: [mongoose.Types.ObjectId]
 })
 
 module.exports = mongoose.model("post", schema)
