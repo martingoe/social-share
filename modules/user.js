@@ -24,7 +24,9 @@ const schema = mongoose.Schema({
     name: {
         forename: String,
         surname: String
-    }
+    },
+    followers: {type: [mongoose.Types.ObjectId], ref: "user"},
+    followercount: {type: Number, default: 0}
 });
 
 schema.set("toJSON", {transform: transforms.userDefaultPrint})

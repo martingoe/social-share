@@ -3,7 +3,6 @@ const mongoose = require("mongoose")
 const User = require("../modules/user")
 
 const Post = require("../modules/post")
-const idUtils = require("../utils/idCreator")
 const likesUtils = require("../utils/likesUtils")
 
 const router = express.Router()
@@ -11,7 +10,8 @@ const router = express.Router()
 
 router.get("/", async (req, res) => {
     try {
-        const posts = await Post.find().populate("userId")
+        const user = await User.findOne({sid: req.cookies.sid})
+        const posts = await Post.find({userId: {$in: user.followers}}).populate("userId").sort({creationDate: -1}).limit(20)
         res.json(posts)
     } catch (e) {
         res.json({
@@ -45,9 +45,9 @@ router.post("/", async (req, res) => {
         }))._id
         post.likes = 0
         post.dislikes = 0
-        post.date = new Date()
         post._id = new mongoose.Types.ObjectId()
         post.save()
+
         res.json(post)
     } catch (e) {
         res.json({
@@ -74,13 +74,13 @@ router.post("/like/:postId", async (req, res) => {
     }
 })
 
-router.post("dislike/:postId", async (req, res) => {
+router.post("/dislike/:postId", async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
         const userId = (await User.findOne({
             sid: req.cookies.sid
         }))._id
-        const result = likesUtils.likeOrDislike(post.dislikesUsers, post.dislikes, userId)
+        const result = await likesUtils.likeOrDislike(post.dislikesUsers, post.dislikes, userId)
         post.dislikesUsers = result[0]
         post.dislikes = result[1]
         await post.save()
