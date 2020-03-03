@@ -1,16 +1,28 @@
 const printPostLikes = (post, userId) => {
-    post.userLiked = false
-    post.userDisliked = false
+    let result = post.toJSON()
+    result.userLiked = false
+    result.userDisliked = false
     if (post.likesUsers.includes(userId)) {
-        post.userLiked = true
+        result.userLiked = true
     }
     if (post.dislikesUsers.includes(userId)) {
-        post.userDisliked = true
+        result.userDisliked = true
     }
-    post.dislikesUsers = null
-    post.likesUsers = null
+    result.dislikesUsers = null
+    result.likesUsers = null
 
-    return post
+    return result
+}
+
+const followOrUnfollow = async(user, userToFollow) => {
+    if(!user.followers.includes(userToFollow._id)){
+        userToFollow.followercount += 1
+        user.followers.push(userToFollow._id)
+    } else{
+        userToFollow.followercount -= 1
+        user.followers.splice(user.followers.indexOf(userToFollow._id))
+    }
+    return [user, userToFollow]
 }
 
 const likeOrDislike = async(likesUsers, likes, userId) => {
@@ -24,4 +36,4 @@ const likeOrDislike = async(likesUsers, likes, userId) => {
     return [likesUsers, likes]
 }
 
-module.exports = {printPostLikes, likeOrDislike}
+module.exports = {printPostLikes, likeOrDislike, followOrUnfollow}
