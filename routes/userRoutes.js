@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose")
 const hashingUtils = require("../utils/hashig")
 const User = require("../modules/user")
+const Post = require("../modules/post")
 const sidUtils = require("../utils/idCreator")
+const likesUtils = require("../utils/likesUtils")
 
 const router = express.Router();
 
@@ -24,6 +26,23 @@ router.get("/:userId", async (req, res) => {
         const user = await User.findById(new mongoose.Types.ObjectId(req.params.userId))
 
         res.json(user)
+    } catch (e) {
+        res.json({
+            message: e
+        })
+    }
+})
+
+router.get("/:userId/posts", async (req, res) => {
+    try {
+        const userId = new mongoose.Types.ObjectId(req.params.userId)
+        const posts = await Post.find({
+            userId: userId
+        }).sort({creationDate: -1}).limit(20)
+        for (let i = 0; i < posts.length; i++) {
+            posts[i] = likesUtils.printPostLikes(posts[i], userId)
+        }
+        res.json(posts)
     } catch (e) {
         res.json({
             message: e
@@ -98,6 +117,23 @@ router.post("/logout", async (req, res) => {
         res.json({
             message: e
         })
+    }
+})
+
+router.post("/follow/:userId", async (req, res) => {
+    try {
+        let user = await User.findOne({sid: req.cookies.sid})
+        let userToFollow = await User.findById(req.params.userId)
+
+        const result = await likesUtils.followOrUnfollow(user, userToFollow)
+        user = result[0]
+        userToFollow = result[1]
+        user.save()
+        userToFollow.save()
+
+        res.json(userToFollow)
+    } catch (e) {
+
     }
 })
 
