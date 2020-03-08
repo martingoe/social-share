@@ -13,7 +13,12 @@ router.get("/", async (req, res) => {
     try {
         const user = await User.findOne({sid: req.cookies.sid})
         const posts = await Post.find({userId: {$in: user.followers}}).populate("userId").sort({creationDate: -1}).limit(20)
-        res.json(posts)
+
+        let result = []
+        for(let i=0; i < posts.length; i++){
+            result.push(likesUtils.printPostLikes(posts[i], user._id))
+        }
+        res.json(result)
     } catch (e) {
         res.json({
             message: e

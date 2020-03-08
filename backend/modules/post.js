@@ -3,7 +3,8 @@ const transform = require("../utils/transform")
 
 const schema = mongoose.Schema({
     _id: mongoose.Types.ObjectId,
-    content: String,
+    title: String,
+    data: String,
     userId: {type: mongoose.Types.ObjectId, ref: "user"},
     creationDate: {type: Date, default: Date.now},
     likes: Number,
