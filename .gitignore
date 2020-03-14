@@ -9,6 +9,7 @@ backend/package-lock.json
 #FRONTEND
 
 # dependencies
+node_modules
 socialshare-frontend/node_modules
 socialshare-frontend/.pnp
 .pnp.js
