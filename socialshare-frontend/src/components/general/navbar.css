@@ -1,0 +1,41 @@
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    background-color: #343a40;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+}
+
+.left{
+    float: left;
+}
+
+li > *{
+    display: block;
+    text-align: center;
+    margin: 2.5px;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover{
+    color: darkgrey;
+}
+.right{
+    float: right;
+}
+
+input, button{
+    margin-top: 7.5px; 
+    height: 40px;
+    border-radius: 5px;
+}
