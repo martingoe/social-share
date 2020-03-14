@@ -20,6 +20,27 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Get the user from the user name
+router.get("/name/:userName", async (req, res) => {
+    try {
+        const requestingUser = await User.findOne({sid: req.cookies.sid})
+        const user = await User.findOne({username: req.params.userName})
+
+        let result = user.toJSON()
+        if (requestingUser){
+            result.isFollowing = requestingUser.followers.includes(user._id)
+        } else{
+            result.isFollowing = false
+        }
+
+        res.json(result)
+    } catch (e) {
+        res.json({
+            message: e
+        })
+    }
+})
+
 // Get the user from the userId
 router.get("/:userId", async (req, res) => {
     try {
@@ -36,7 +57,7 @@ router.get("/:userId", async (req, res) => {
 // Get the latest 20 posts from a specific user
 router.get("/:userId/posts", async (req, res) => {
     try {
-        const userId = new mongoose.Types.ObjectId(req.params.userId)
+        const userId = mongoose.Types.ObjectId(req.params.userId)
         const posts = await Post.find({
             userId: userId
         }).sort({creationDate: -1}).limit(20)
