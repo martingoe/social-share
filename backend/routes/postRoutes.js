@@ -3,6 +3,8 @@ const mongoose = require("mongoose")
 const User = require("../modules/user")
 
 const Post = require("../modules/post")
+const Comment = require("../modules/comment")
+
 const likesUtils = require("../utils/likesUtils")
 
 const router = express.Router()
@@ -37,6 +39,27 @@ router.get("/:postId", async (req, res) => {
         post = likesUtils.printPostLikes(post, userId)
 
         res.json(post)
+    } catch (e) {
+        res.json({
+            message: e
+        })
+    }
+})
+
+// Gets the coments of a post
+router.get("/:postId/comments", async (req, res) => {
+    try {
+        let comments = await Comment.find({postId: req.params.postId}).populate("userId")
+        const user = (await User.findOne({
+            sid: req.cookies.sid
+        }))
+
+        let result = comments
+        for(let i = 0; i < result.length; i++){
+            result[i].userLiked = result[i].likesUser.includes(user)
+            delete result.likesUser
+        }
+        res.json(result)
     } catch (e) {
         res.json({
             message: e
