@@ -1,6 +1,6 @@
-# SocialShare
+# SocialShare Backend
 
-This is a social media application that was created to learn about concepts like session ids, cookies and the MERN stack.
+This is the backend for the social media application "SocialShare" that was created to learn about concepts like session ids, cookies and the MERN stack.
 It may later be deployed but this is not yet planned as it was developed for educational purposes.
 
 ## Getting Started
@@ -22,6 +22,11 @@ Clone the project
 
 ```
 git clone https://github.com/xCubeArrow/social-share.git
+```
+
+Go to the backend directory
+```
+cd backend
 ```
 
 Edit .env to match your requirements 
@@ -56,4 +61,4 @@ See also the list of [contributors](https://github.com/xcubearrow/social-share/g
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](../LICENSE.md) file for details
