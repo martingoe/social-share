@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 const postRoutes = require("./routes/postRoutes")
 
 const app = express();
@@ -28,9 +29,10 @@ res.setHeader('Access-Control-Allow-Credentials', true);
 next()
 });
 
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 app.use(cookieParser())
-app.use("/api/user", userRoutes);
+app.use("/api/user", userRoutes)
+app.use("/api/comment", commentRoutes)
 app.use("/api/post", postRoutes)
 
 
