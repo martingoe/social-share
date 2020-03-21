@@ -1,0 +1,10 @@
+
+.likesPanel>button>* {
+    margin-right: 10px;
+    color: grey;
+}
+
+.likesPanel>button {
+    margin-right: 4px;
+    margin-top: 7.5px;
+}
