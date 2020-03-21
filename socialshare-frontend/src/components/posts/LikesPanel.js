@@ -1,4 +1,5 @@
 import React from "react"
+import "./likesPanel.css"
 import {MdThumbUp, MdThumbDown} from "react-icons/md"
 
 class LikesPanel extends React.Component{
