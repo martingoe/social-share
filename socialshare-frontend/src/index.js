@@ -1,9 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {BrowserRouter, Switch, Route} from "react-router-dom"
-import './index.css';
 import {IndexPage} from "./pages/index"
 import UserPage from "./pages/user"
+
+import './css/index.css';
+import "./css/mediaQueries.css"
+import "./css/buttons.css"
+
 class Main extends React.Component{
     render() {
         return(
