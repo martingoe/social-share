@@ -7,8 +7,9 @@ const schema = mongoose.Schema({
     postId: {type: mongoose.Types.ObjectId, ref: "post"},
     userId: {type: mongoose.Types.ObjectId, ref: "user"},
     content: String,
+    date: {type: Date, default: Date.now},
 
-    likesUser: {type: [mongoose.Types.ObjectId], ref: "user"},
+    likesUser: {type: [mongoose.Types.ObjectId]},
     likesCount: {type: Number, default: 0}
 });
 
