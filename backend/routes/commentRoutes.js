@@ -47,15 +47,15 @@ router.post("/:postId", async (req, res) => {
 })
 
 // Like or unlike a comment
-router.post("/like/:postId", async (req, res) => {
+router.post("/like/:commentId", async (req, res) => {
     try {
-        const comment = await Post.findById(req.params.postId)
+        const comment = await Comment.findById(req.params.commentId)
         const userId = (await User.findOne({
             sid: req.cookies.sid
         }))._id
         const result = await likesUtils.likeOrDislike(comment.likesUser, comment.likesCount, userId)
         comment.likesUser = result[0]
-        comment.likes = result[1]
+        comment.likesCount = result[1]
         await comment.save()
         res.json(likesUtils)
     } catch (e) {
