@@ -34,13 +34,18 @@ export default class CommentDisplay extends React.Component{
         } else if (this.state.error){
             return <div style={{paddingTop: "100px"}}><h1>The requested post could not be found</h1></div>
         } else {
-            return (
-                <div>
-                {this.state.comments.map(comment => (
-                    <Comment value={comment} key={comment._id}></Comment>
-                ))}
-                </div>
-            )
+            if(this.state.comments != "[]"){
+                return(
+                    <div>
+                    {this.state.comments.map(comment => (
+                        <Comment value={comment} key={comment._id}></Comment>
+                    ))}
+                    </div>
+                )
+            }
+            else{
+                return(<div />)
+            }
         }
     }
 }
