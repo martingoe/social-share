@@ -49,14 +49,21 @@ router.get("/:postId", async (req, res) => {
 // Gets the coments of a post
 router.get("/:postId/comments", async (req, res) => {
     try {
-        let comments = await Comment.find({postId: req.params.postId}).populate("userId")
+        let comments = await Comment.find({postId: new mongoose.Types.ObjectId(req.params.postId)}).populate("user")
         const user = (await User.findOne({
             sid: req.cookies.sid
-        }))
+        }))._id
 
-        let result = comments
-        for(let i = 0; i < result.length; i++){
-            result[i].userLiked = result[i].likesUser.includes(user)
+        if(comments.length === 0){
+            res.json("[]")
+            return;
+        }
+
+        let result = [comments.length]
+        for(let i = 0; i < comments.length; i++){
+            result[i] = comments[i].toJSON()
+            var test = comments[i]
+            result[i].userLiked = test.likesUser.includes(user)
             delete result.likesUser
         }
         res.json(result)
